@@ -10,6 +10,8 @@ public class Clerigo extends Personaje implements Curador, Defensor {
         super(vida, tipo, nivel);
     }
 
+
+    // Implementacion de los metodos abstractos
     @Override
     public void turno(Object personaje) {
         defender = defender();
@@ -17,7 +19,12 @@ public class Clerigo extends Personaje implements Curador, Defensor {
         IO.println("El clerigo ha curado " + curacion + ", y defendido en " + defender);
     }
 
-    // Metodos
+    @Override
+    public void actualizaVida() {
+
+    }
+
+    // Metodos de curacion y defension
     @Override
     public int curar() {
         return Combate.aleatorio(18);

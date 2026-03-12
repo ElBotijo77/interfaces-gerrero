@@ -1,6 +1,6 @@
 package org.example;
 
-public abstract class  Personaje {
+public abstract class Personaje {
 
     private int vida;
     private int tipo;
@@ -14,8 +14,12 @@ public abstract class  Personaje {
         calcularVida();
     }
 
+    //Metodos abstractos para definir el turno y calcular la vida tras un ataque
     public abstract void turno(Object personaje);
 
+    public abstract void actualizaVida();
+
+    //Metodos varios
     public void calcularVida(){
         vida += nivel;
     }
@@ -25,7 +29,6 @@ public abstract class  Personaje {
     }
 
     //GETTERS Y SETTERS
-
     public int getVida() {
         return vida;
     }

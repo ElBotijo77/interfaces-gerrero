@@ -2,17 +2,24 @@ package org.example;
 
     public class Mago extends Personaje implements Atacante{
 
-        int ataque = 0;
+        private int ataqueMago = 0;
 
         // Constructor
         public Mago(int vida, int tipo, int nivel) {
             super(vida, tipo, nivel);
         }
 
+
+        // Implementacion de los metodos abstractos
         @Override
         public void turno(Object personaje) {
-            ataque = atacar();
+            ataqueMago = atacar();
             IO.println("El mago ha hecho " + ataque + " puntos de daño");
+        }
+
+        @Override
+        public void actualizaVida() {
+
         }
 
         // Metodos
@@ -23,5 +30,15 @@ package org.example;
 
         public int ataqueEnemigo(){
             return ataque;
+        }
+
+
+        //Guetter y setter para ataque
+        public int getAtaqueMago() {
+            return ataqueMago;
+        }
+
+        public void setAtaqueMago(int ataqueMago) {
+            this.ataqueMago = ataqueMago;
         }
     }
