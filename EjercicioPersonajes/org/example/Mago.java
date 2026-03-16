@@ -1,4 +1,4 @@
-package org.example;
+package EjercicioPersonajes.org.example;
 
     public class Mago extends Personaje implements Atacante{
 
@@ -14,7 +14,7 @@ package org.example;
         @Override
         public void turno(Object personaje) {
             ataqueMago = atacar();
-            IO.println("El mago ha hecho " + ataque + " puntos de daño");
+            IO.println("El mago ha hecho " + ataqueMago + " puntos de daño");
         }
 
         @Override
@@ -29,7 +29,7 @@ package org.example;
         }
 
         public int ataqueEnemigo(){
-            return ataque;
+            return ataqueMago;
         }
 
 

@@ -1,4 +1,4 @@
-package org.example;
+package EjercicioPersonajes.org.example;
 
 public interface Curador {
 

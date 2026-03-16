@@ -1,4 +1,4 @@
-package org.example;
+package EjercicioPersonajes.org.example;
 
 public class Guerrero extends Personaje implements Atacante, Defensor{
 
