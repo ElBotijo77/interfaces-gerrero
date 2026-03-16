@@ -3,12 +3,13 @@ package EjercicioPersonajes.org.example;
     public class Mago extends Personaje implements Atacante{
 
         private int ataqueMago = 0;
-
-        // Constructor
+        
+        // Constructores
         public Mago(int vida, int tipo, int nivel) {
             super(vida, tipo, nivel);
         }
-
+        
+        public Mago(){};
 
         // Implementacion de los metodos abstractos
         @Override

@@ -1,9 +1,11 @@
 package EjercicioPersonajes.org.example;
 
+import java.util.Scanner;
+
 public class Main {
     static void main() {
 
-        /*Los tipos correstponden a estas clases
+        /*Los tipos corresponden a estas clases
         * Tipo 0: Guerrero
         * Tipo 1: Mago
         * Tipo 2: Clerigo
@@ -21,10 +23,23 @@ public class Main {
             ------------------------------FIN--------------------------
         * */
 
+        //Declaracion de personajes
         Guerrero g = new Guerrero(50, 0, 2);
         Mago m = new Mago(50, 1, 10);
         Clerigo c = new Clerigo(50, 2, 7);
         Enemigo n = new Enemigo(100, -1, 0);
 
+        //Definicion de cada ronda, en la que elegiremos si huir o luchar un turno mas
+        Scanner sc = new Scanner(System.in);
+        boolean huir = false;
+
+        while (!huir) {
+            Turno.generaTurno(g, m, c);
+
+            System.out.println("¿Quieres huir? (0: Continuar / 1: Huir)");
+            huir = (sc.nextInt() == 1);
+        }
+        IO.println("Programa finalizado con exito");
+        sc.close();
     }
 }

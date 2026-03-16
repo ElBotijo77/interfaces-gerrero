@@ -5,10 +5,12 @@ public class Clerigo extends Personaje implements Curador, Defensor {
     int defender = 0;
     int curacion = 0;
 
-    // Constructor
+    // Constructores
     public Clerigo(int vida, int tipo, int nivel) {
         super(vida, tipo, nivel);
     }
+    
+    public Clerigo(){};
 
 
     // Implementacion de los metodos abstractos

@@ -5,10 +5,12 @@ public class Guerrero extends Personaje implements Atacante, Defensor{
     private int ataqueGuerrero = 0;
     private int defensaGuerrero = 0;
 
+    //Constructores
     public Guerrero(int vida, int tipo, int nivel) {
         super(vida, tipo, nivel);
     }
 
+    public Guerrero(){};
 
     //Implementacion de los metodos abstractos
     @Override

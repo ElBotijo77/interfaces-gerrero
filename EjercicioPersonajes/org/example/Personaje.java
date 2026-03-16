@@ -6,6 +6,8 @@ public abstract class Personaje {
     private int tipo;
     private int nivel;
 
+    public Personaje(){};
+    
     public Personaje(int vida, int tipo, int nivel) {
         this.vida = vida;
         this.tipo = tipo;
