@@ -2,7 +2,6 @@ package EjercicioPersonajes.org.example;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import static EjercicioPersonajes.org.example.ManejoFicheros.devuelveListaTrasLeer;
 
@@ -20,29 +19,36 @@ public class Turno {
     
     //Cada vez que se llame al turno generaTurno, se crearan unos ataques/defensa/curacion aleatorios y serán
     //guardados dentro de un fichero para su posterior lectura
-    public static void generaTurno(Guerrero guerrero, Mago mago, Clerigo clerigo){
+    public static boolean generaTurno(Guerrero guerrero, Mago mago, Clerigo clerigo, Enemigo enemigo){
         ArrayList<Integer> datosTurno;
+        boolean enemyIsAlive;
 
         //Metodo que genera el turno y lo escirbe en el archivo
         generaAtaquesDefensasCuracion(guerrero, mago, clerigo);
 
         //En esta lista objetenemos los valores de la batalla a sucio
         datosTurno = devuelveListaTrasLeer("datosGuardados.bin", contadorTurno);
+        IO.println(datosTurno);
 
         //Devolvemos por pantalla los datos obtenidos
         traducirDatosHumano(datosTurno);
 
+        //Con este metodo aplicamos los daños generados.
+        enemyIsAlive = aplicaDañoDefensaCuracion(decodificaDatosLista(datosTurno), guerrero, mago, clerigo, enemigo);
+
         //Contador para saber en que posicion poner el SEEK
         contadorTurno++;
+
+        return enemyIsAlive;
     }
 
-    
+
     //Metodo que genera los ataques y escribe en un archivo binario
     public static void generaAtaquesDefensasCuracion(Guerrero guerrero, Mago mago, Clerigo clerigo){
         //Comprobacion de los supervivientes con un metodo aparte. Si no esta vivo, escibira 0
         boolean[] supervivientes = devuleveSupervivientes(guerrero, mago, clerigo);
 
-        //Escritura del ataque, defensa o curacion que ha generado.
+        //Escritura del ataque, defensa o curacion respectivamente, que ha generado cada unidad.
         //Guerrero (Tipo 0)
         ManejoFicheros.escribeBinario(ficheroDatos, 0,
                 supervivientes[0] ? guerrero.atacar() : 0,
@@ -58,6 +64,20 @@ public class Turno {
                 supervivientes[2] ? clerigo.curacion : 0);
     }
 
+    //Aplica el daño conjunto realizado por el equipo al enemigo. Cuando muere finaliza el programa
+    //Si hubiera tiempo se aplicaria de forma aleatoria la defensa y curacion realizadas por el equipo, y que
+    //el enemigo atacase. Habria que cambiar la recopilacion de datos desde el archivo binario
+    public static boolean aplicaDañoDefensaCuracion(int[] enteros, Guerrero guerrero, Mago mago, Clerigo clerigo, Enemigo enemigo){
+        enemigo.setVida(enemigo.getVida() - enteros[0]);
+        if(enemigo.getVida() < 0) {
+            IO.println("El enemigo ha muerto");
+            return true;
+        } else {
+            IO.println("El enemigo tiene " + enemigo.getVida() + " puntos de vida");
+        }
+        return false;
+    }
+
     
     //Metodo que devuelve un array boleano en el que mostrará 1 si el personaje esta vivo, o 0 si no lo está.
     public static boolean[] devuleveSupervivientes(Guerrero g, Mago m, Clerigo c){
@@ -67,6 +87,20 @@ public class Turno {
         bool[2] = c.getVida() > 0;
         return bool;
     }
+
+    //Recopilacion del daño, etc realizado conseguido a partir del array datosTurno siguiendo el orden de
+    //daño, defensa, curación definidos en el array
+    public static int[] decodificaDatosLista(ArrayList<Integer> lista) {
+        int[] datos = new int[3];
+        for (int i = 0; i < lista.size(); i++) {
+            int posicion = i % 4;
+            if (posicion == 1) datos[0] += lista.get(i);            //Daño
+            else if (posicion == 2) datos[1] += lista.get(i);       //Defensa
+            else if (posicion == 3) datos[2] += lista.get(i);       //Curacion
+        }
+        return datos;
+    }
+
 
 
     //Traduce a idioma humano los datos recogidos del archivo

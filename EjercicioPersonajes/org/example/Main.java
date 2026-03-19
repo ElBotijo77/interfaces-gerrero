@@ -11,17 +11,13 @@ public class Main {
         * Tipo 2: Clerigo
         * */
 
-        /*  Vamos a crear la clase turno, en el que manejara los ataques de cada UNIDAD. Para ello debemos cambiar
-            a static todos los metodos de GUERRERO, CLERIGO y MAGO.
-            En la clase TURNO manejaremos GUERRERO por ejemplo, llamando a los metodos ATACAR y DEFENDER. Hacer en todas las unidades
-            Guardaremos esos datos en un FICHERO creado para la ocasion y al final del metodo que recoja todos los
-            turnos de las UNIDADES guardará en una variable ATAQUE el ataque total, DEFENSA la defensa total, etc
-            Esto se conseguira con el metodo LecturaFichero
-            Al final eso se quitará a la clase ENEMIGO
-            La defensa la podemos repartir entre todas las unidades del equipo, pero al final del turno deben volver
-            a la vida actual. Toda la logica del porgrama la recogerá practicamente el metodo TURNO
-            ------------------------------FIN--------------------------
-        * */
+        /*Se crean varias clases de personajes con las caracteristicas pedidas y una clase Enenimgo que por
+        * el momento no realizará ninguna accion. Las acciones de los personajes son dadas de forma aleatoria
+        * y se guardan en un archivo binario para poder guardar los datos de cada ronda y poder consultarla
+        * en cualquier momento gracias a seek(). La logica general del programa esta recogida en la clase Turno
+        * que sera la que aplica los daños, etc, los lee y escribe al archivo binario y muestra por pantalla
+        * los datos recopilados en un array (Siempre tiene el mimso formato, dividido en registros de 4 datos
+        * cada uno). Finalmente cuando el enemigo muere, el programa finaliza*/
 
         //Declaracion de personajes
         Guerrero g = new Guerrero(50, 0, 2);
@@ -33,8 +29,10 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         boolean huir = false;
 
+        //Elegimos entre huir o continuar en el ataque hasta que el enemigo haya MUERTO.
         while (!huir) {
-            Turno.generaTurno(g, m, c);
+            huir = Turno.generaTurno(g, m, c, n);
+            if (huir) break;
 
             System.out.println("¿Quieres huir? (0: Continuar / 1: Huir)");
             huir = (sc.nextInt() == 1);
